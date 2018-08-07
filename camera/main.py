@@ -9,7 +9,7 @@ from processor.pedestrian_detector import PedestrianDetector as VideoCamera
 import time
 import threading
 
-video_camera = VideoCamera(flip=True)
+video_camera = VideoCamera(flip=False)
 
 
 app = Flask(__name__)
