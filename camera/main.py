@@ -1,6 +1,6 @@
 from flask import Flask, render_template, Response
-from processor.simple_streamer import SimpleStreamer as VideoCamera
-# from processor.pedestrian_detector import PedestrianDetector as VideoCamera
+# from processor.simple_streamer import SimpleStreamer as VideoCamera
+from processor.pedestrian_detector import PedestrianDetector as VideoCamera
 # from processor.motion_detector import MotionDetector as VideoCamera
 # from processor.qr_detector import QRDetector as VideoCamera
 # from processor.face_detector import FaceDetector as VideoCamera
@@ -9,7 +9,7 @@ from processor.simple_streamer import SimpleStreamer as VideoCamera
 import time
 import threading
 
-video_camera = VideoCamera(flip=False)
+video_camera = VideoCamera(flip=True)
 
 
 app = Flask(__name__)
