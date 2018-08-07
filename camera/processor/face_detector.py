@@ -23,6 +23,7 @@ class FaceDetector(object):
         return frame
 
     def get_frame(self):
+        # frameに描画レイヤーを書き足していく
         frame = self.flip_if_needed(self.vs.read())
         frame = self.process_image(frame)
         ret, jpeg = cv2.imencode('.jpg', frame)
@@ -40,6 +41,8 @@ class FaceDetector(object):
         # 顔の位置を描画する
         for (x,y,w,h) in faces:
             cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
+            font = cv2.FONT_HERSHEY_SIMPLEX
+            cv2.putText(img, str(len(faces)), (10, 500), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
         # frameを戻り値として返す
         return frame
