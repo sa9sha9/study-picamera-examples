@@ -18,12 +18,18 @@ class FaceDetector(object):
         self.vs.stop()
 
     def get_frame(self):
+        # 開始時刻
+        start = time.clock()
+
         # frameに描画レイヤーを書き足していく
         frame = self.flip_if_needed(self.vs.read())
         frame = self.process_image(frame)
         ret, jpeg = cv2.imencode('.jpg', frame)
 
-        print(jpeg)
+        # 処理時間計測
+        get_image_time = int((time.clock()-start)*1000)
+        # 1フレーム取得するのにかかった時間を表示
+        cv2.putText( frame, str(get_image_time)+"ms", (10,10), 1, 1, (0,255,0))
 
         return jpeg.tobytes()
 
