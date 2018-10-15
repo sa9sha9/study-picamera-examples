@@ -9,12 +9,10 @@ class FaceDetector(object):
     def __init__(self, flip = True):
         self.vs = PiVideoStream(resolution=(800, 608)).start()
         self.flip = flip
-        time.sleep(1.0)
+        time.sleep(2.0)
 
         # opencvの顔分類器(CascadeClassifier)をインスタンス化する
         self.face_cascade = cv2.CascadeClassifier('camera/processor/model/haarcascades/haarcascade_frontalface_default.xml')
-
-        print(self.face_cascade)
 
     def __del__(self):
         self.vs.stop()
@@ -24,6 +22,9 @@ class FaceDetector(object):
         frame = self.flip_if_needed(self.vs.read())
         frame = self.process_image(frame)
         ret, jpeg = cv2.imencode('.jpg', frame)
+
+        print(jpeg)
+
         return jpeg.tobytes()
 
     def flip_if_needed(self, frame):
@@ -38,8 +39,6 @@ class FaceDetector(object):
         # 上記でグレースケールに変換したものをインスタンス化した顔分類器の
         # detectMultiScaleメソッドで処理し、認識した顔の座標情報を取得する
         faces = self.face_cascade.detectMultiScale(gray, 1.3, 3)
-
-        print('faces: {}'.format(faces))
 
         # 取得した座標情報を元に、cv2.rectangleを使ってframe上に
         # 顔の位置を描画する
